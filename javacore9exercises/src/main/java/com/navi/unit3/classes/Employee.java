@@ -1,6 +1,8 @@
-package com.navi.classes;
+package com.navi.unit3.classes;
 
 import java.util.Random;
+
+import com.navi.unit3.classes.interfaces.Measurable;
 
 public class Employee implements Measurable <Double> {
     public static Double MIN_SALARY = 100.0;
