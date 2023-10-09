@@ -4,42 +4,40 @@ import java.util.Random;
 
 import com.navi.unit3.classes.interfaces.Measurable;
 
-public class Employee implements Measurable <Double> {
+public class Employee implements Measurable<Double> {
     public static Double MIN_SALARY = 100.0;
     private String name;
     private Double salary;
-    private long uid = new Random ().nextLong(100000, 999999);
+    private long uid = new Random().nextLong(100000, 999999);
 
-
-    public Employee (String name, double salary) {
+    public Employee(String name, double salary) {
         this.name = name;
         this.salary = salary;
     }
 
-    public Employee (String name) {
+    public Employee(String name) {
         this(name, MIN_SALARY);
     }
 
-
-    public Double getMeasure () {
+    public Double getMeasure() {
         return this.salary;
     }
-     public String toString () {
+
+    public String toString() {
         return String.format("""
-Employee %s:
-    name: %s
-    salary: %s
-    """, uid, name, salary);
+                Employee %s:
+                    name: %s
+                    salary: %s
+                    """, uid, name, salary);
     }
 
-    public void raiseSalary (double byPercent) {
+    public void raiseSalary(double byPercent) {
         double raise = salary * byPercent / 100;
         this.salary += raise;
     }
 
-    public String getName () {
+    public String getName() {
         return this.name;
     }
-
 
 }

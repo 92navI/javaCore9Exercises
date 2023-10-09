@@ -39,8 +39,6 @@ public class Files {
     }
 
     public static ArrayList<String> listIncluding(File file, String filter) throws IOException {
-        return listIncluding(file, (f, name) -> {
-            return name.contains(filter);
-        });
+        return listIncluding(file, (f, name) -> name.contains(filter));
     }
 }

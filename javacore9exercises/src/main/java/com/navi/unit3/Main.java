@@ -4,15 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import com.navi.unit3.classes.Employee;
+import com.navi.unit3.classes.Files;
 import com.navi.unit3.classes.Greeter;
 import com.navi.unit3.classes.Measures;
-import com.navi.unit3.classes.Files;
+import com.navi.unit3.classes.Threads;
 import com.navi.unit3.classes.interfaces.IntSequence;
 import com.navi.unit3.classes.interfaces.SquareSequence;
-import com.navi.unit3.classes.Threads;
 
 public class Main {
 
@@ -36,27 +35,27 @@ public class Main {
 
         // Task 4
         var sequence = IntSequence.of(2, 34345, 45346, 5, 6767, 8, 9, 654564567);
-        while(sequence.hasNext()) {
-        System.out.println(sequence.next());
+        while (sequence.hasNext()) {
+            System.out.println(sequence.next());
         }
 
         // Task 5
         var sequence1 = IntSequence.constant(5);
         while (sequence1.hasNext()) {
-        System.out.println(sequence1.next());
+            System.out.println(sequence1.next());
         }
 
         // Task 6
         var sequence2 = new SquareSequence();
         int num = 0;
         while (sequence2.hasNext() && num <= 40) {
-        System.out.println(sequence2.next());
-        num++;
+            System.out.println(sequence2.next());
+            num++;
         }
 
         // Task 8
         var list = List.of("Helo", "HEllo", "a", "LALA888L");
-        Measures.luckySort(list, (s1, s2) -> s1.length()-s2.length());
+        Measures.luckySort(list, (s1, s2) -> s1.length() - s2.length());
 
         // Task 9
         var threads = new ArrayList<Thread>();
@@ -64,7 +63,8 @@ public class Main {
         threads.add(new Thread(greeter2));
         threads.add(new Thread(greeter3));
         threads.add(new Thread(greeter4));
-        for (Thread t : threads) t.start();
+        for (Thread t : threads)
+            t.start();
 
         // Task 10.1
         Threads.runTogether(greeter1, greeter2, greeter3, greeter4);
@@ -74,16 +74,37 @@ public class Main {
         // Task 11
         var file = new File("javacore9exercises/src/main/java/com/navi/unit3/classes");
         try {
+
+            // lists all files in this directiry
             for (File f : Files.subDirAll(file)) {
-                System.out.println(f.toString());
+                System.out.println(f.getName());
             }
+
+            // lists all files that pass the filter
+            for (File f : Files.subDir(file, f -> f.isFile())) {
+                System.out.println(f.getName());
+            }
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
 
         // Task 12
         try {
-        Files.listIncluding(file, "reads");
+
+            // lists names of files that contails a string
+            for (String f : Files.listIncluding(file, "es")) {
+                System.out.println(f);
+            }
+            System.out.println();
+
+            // lists names of files that pass the filter
+            for (String f : Files.listIncluding(file, (f, name) -> {
+                return name.endsWith(".java") && name.contains("es");
+            })) {
+                System.out.println(f);
+            }
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
