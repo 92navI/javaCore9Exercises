@@ -13,4 +13,14 @@ public class Threads {
             i.run();
         }
     }
+
+    public static Runnable joinTasks (Runnable... tasks) {
+        return new Runnable() {
+            public void run () {
+                for (Runnable t : tasks) {
+                    t.run();
+                }
+            }
+        };
+    }
 }

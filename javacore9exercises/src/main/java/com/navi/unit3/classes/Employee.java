@@ -40,4 +40,7 @@ public class Employee implements Measurable<Double> {
         return this.name;
     }
 
+    public Double getSalary() {
+        return this.salary;
+    }
 }

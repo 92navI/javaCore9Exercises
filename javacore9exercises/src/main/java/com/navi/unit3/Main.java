@@ -3,6 +3,8 @@ package com.navi.unit3;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.navi.unit3.classes.Employee;
@@ -15,15 +17,37 @@ import com.navi.unit3.classes.interfaces.SquareSequence;
 
 public class Main {
 
-    static Greeter greeter1 = new Greeter("Ivan", 11);
-    static Greeter greeter2 = new Greeter("Polina", 13);
-    static Greeter greeter3 = new Greeter("Arthut", 9);
-    static Greeter greeter4 = new Greeter("Tatalyalya", 14);
+    static List<Greeter> greeters = List.of(
+            new Greeter("Ivan", 11),
+            new Greeter("Polina", 13),
+            new Greeter("Arthut", 9),
+            new Greeter("Tatalyalya", 14));
 
     static List<Employee> employees = List.of(
+            new Employee("Remi", 750),
             new Employee("Alex", 569),
             new Employee("Steven", 750),
             new Employee("Kate", 500));
+
+    static File file = new File("javacore9exercises/src/main/java/com/navi/unit3/classes");
+
+    static List<File> fileList = List.of(
+            new File("javacore9exercises/src/main/java/com/navi/unit3/classes"),
+            new File("javacore9exercises/src/main/java/com/navi/unit3/Files.java"),
+            new File("javacore9exercises/src/main/java/com/navi/unit3/classes/Employees.java"),
+            new File("javacore9exercises/src/main/java/com/navi/unit3/classes/interfaces"));
+
+    static Comparator<File> fileComparator = (f1, f2) -> {
+        if (f1.isDirectory() && f2.isDirectory()) {
+            return f1.getPath().compareTo(f2.getPath());
+        } else if (f1.isDirectory() && !f2.isDirectory()) {
+            return -1;
+        } else if (f2.isDirectory() && !f1.isDirectory()) {
+            return 1;
+        } else {
+            return f1.getPath().compareTo(f2.getPath()) * -1;
+        }
+    };
 
     public static void main(String[] args) {
 
@@ -58,21 +82,18 @@ public class Main {
         Measures.luckySort(list, (s1, s2) -> s1.length() - s2.length());
 
         // Task 9
-        var threads = new ArrayList<Thread>();
-        threads.add(new Thread(greeter1));
-        threads.add(new Thread(greeter2));
-        threads.add(new Thread(greeter3));
-        threads.add(new Thread(greeter4));
+        List<Thread> threads = greeters.stream().map((g) -> new Thread(g)).toList();
         for (Thread t : threads)
             t.start();
 
         // Task 10.1
-        Threads.runTogether(greeter1, greeter2, greeter3, greeter4);
+        Threads.runTogether(greeters.get(0), greeters.get(1),
+                greeters.get(2), greeters.get(3));
         // Task 10.2
-        Threads.runInOrder(greeter1, greeter2, greeter3, greeter4);
+        Threads.runInOrder(greeters.get(0), greeters.get(1),
+                greeters.get(2), greeters.get(3));
 
         // Task 11
-        var file = new File("javacore9exercises/src/main/java/com/navi/unit3/classes");
         try {
 
             // lists all files in this directiry
@@ -107,6 +128,29 @@ public class Main {
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+
+        // Task 13
+        var sortedFileList = new ArrayList<File>(fileList);
+        sortedFileList.sort(fileComparator);
+        sortedFileList.stream().forEach(System.out::println);
+
+        // Task 14
+        Runnable runnablePool = Threads.joinTasks(greeters.get(0), greeters.get(1),
+                greeters.get(2), greeters.get(3));
+        runnablePool.run();
+
+        // Task 15
+        var sortedEmployees = new ArrayList<Employee>(employees);
+        sortedEmployees.sort(Comparator
+                .comparing((Employee e) -> e.getSalary())
+                .thenComparing((Employee e) -> e.getName()));
+        System.out.println(sortedEmployees);
+
+        // Task 16
+        var sequence3 = IntSequence.randomInts(0, 20);
+        for (int i = 0; i <= 10; i++) {
+            System.out.println(sequence3.next());
         }
 
     }
