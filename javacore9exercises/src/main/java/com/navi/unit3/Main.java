@@ -39,13 +39,13 @@ public class Main {
 
     static Comparator<File> fileComparator = (f1, f2) -> {
         if (f1.isDirectory() && f2.isDirectory()) {
-            return f1.getPath().compareTo(f2.getPath());
+            return -f1.getPath().compareTo(f2.getPath());
         } else if (f1.isDirectory() && !f2.isDirectory()) {
             return -1;
         } else if (f2.isDirectory() && !f1.isDirectory()) {
             return 1;
         } else {
-            return f1.getPath().compareTo(f2.getPath()) * -1;
+            return -f1.getPath().compareTo(f2.getPath());
         }
     };
 
@@ -153,6 +153,13 @@ public class Main {
             System.out.println(sequence3.next());
         }
 
+        // Task 13 (Edit)
+        System.out.println();
+        var sortedFileList1 = new ArrayList<File>(fileList);
+        sortedFileList1.sort(Comparator
+                .comparing(File::isDirectory, Comparator.reverseOrder())
+                .thenComparing(File::getPath, Comparator.reverseOrder()));
+        sortedFileList1.stream().forEach(System.out::println);
     }
 
 }
