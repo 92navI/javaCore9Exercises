@@ -2,9 +2,9 @@ package com.navi.unit4.classes;
 
 public class Rectangle extends Shape {
 
-    private double width;
+    private final double width;
 
-    private double height;
+    private final double height;
 
     public Rectangle(Point topLeft, double width, double height) {
         this.point = topLeft;
