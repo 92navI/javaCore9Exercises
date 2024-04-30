@@ -23,6 +23,7 @@ public class Circle extends Shape {
         return String.format("Circle(%s, radius=%s)", point, radius);
     }
 
+    @Override
     public Circle clone() {
         return new Circle(point, radius);
     }

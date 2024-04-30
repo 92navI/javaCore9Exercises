@@ -23,6 +23,7 @@ public class Line extends Shape {
         return String.format("Line(%s, %s)", point, endPoint);
     }
 
+    @Override
     public Line clone() {
         return new Line(point, endPoint);
     }

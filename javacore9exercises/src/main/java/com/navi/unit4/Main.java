@@ -9,8 +9,8 @@ import com.navi.unit4.classes.Line;
 
 public class Main {
 
-    private static Point point = new Point(23, 34.1);
-    private static LabeledPoint labeledPoint = new LabeledPoint("POINT", 23, 34.1);
+    private static final Point point = new Point(23, 34.1);
+    private static final LabeledPoint labeledPoint = new LabeledPoint("POINT", 23, 34.1);
     public static void main(String[] args) {
 
         // Task 1        

@@ -22,6 +22,7 @@ public class Rectangle extends Shape {
                 point, width, height);
     }
 
+    @Override
     public Rectangle clone() {
         return new Rectangle(point, width, height);
     }
